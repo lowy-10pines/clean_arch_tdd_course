@@ -1,0 +1,16 @@
+import 'package:clean_arch_tdd_course/core/either.dart';
+import 'package:clean_arch_tdd_course/core/error/failures.dart';
+
+class InputConverter {
+  Either<Failure, int> stringToUnsignedInteger(String str) {
+    try {
+      final integer = int.parse(str);
+      if (integer < 0) {
+        throw const FormatException();
+      }
+      return Right(integer);
+    } on FormatException {
+      return Left(InvalidInputFailure());
+    }
+  }
+}
